@@ -84,6 +84,10 @@ class FileAccess:
         except Exception as e:
             print(f"Initialization error: {e}")
 
+    def exists(self) -> bool:
+        """Check if the file exists."""
+        return os.path.isfile(self.file_address)
+
     def ensure_directory_exists(self):
         """Ensure that the directory for the file exists."""
         try:
