@@ -1,0 +1,26 @@
+[
+    {
+        "fields": {
+            "fiction": "FIC",
+            "non_fiction": "NFC",
+            "novel": "NOV",
+            "science": "SCI",
+            "history": "HIS",
+            "technology": "TEC",
+            "art": "ART",
+            "philosophy": "PHI",
+            "biography": "BIO",
+            "mystery": "MYS",
+            "fantasy": "FAN",
+            "romance": "ROM",
+            "horror": "HOR",
+            "self_help": "SHP",
+            "children": "CHI",
+            "young_adult": "YAD",
+            "cookbook": "COO",
+            "travel": "TRA",
+            "poetry": "POE",
+            "graphic_novel": "GNV"
+        }
+    }
+]
