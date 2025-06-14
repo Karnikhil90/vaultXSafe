@@ -73,7 +73,7 @@ class VaultEngine:
         
     def getfile_icon(self, icon_file_name: str = None) -> str | None:
         """Returns full path for a given icon file name."""
-        return self.getdata_file("icon").get(icon_file_name, None)
+        return self.getdata_file("icon").get("root", None) + self.getdata_file("icon").get(icon_file_name, None)
         
     def get_password_categories(self)-> list[str]:
         return ["Gmail", "Facebook", "Email"]
