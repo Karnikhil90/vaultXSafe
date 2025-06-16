@@ -1,7 +1,8 @@
 [
     {
         "setting": {
-            "title": "Nikhil Window",
+            "title": "VaultXSafe v1.2a",
+            "version" : "1.1a",
             "geometry": [500,500],
             "position": [500,200]
         },
@@ -13,6 +14,7 @@
             "css": {
                 "root": "./src/css/",
                 "global" : "global.css",
+                "store_password" :"store_password.css",
                 "button": "button.css"
             },
             "database": {
