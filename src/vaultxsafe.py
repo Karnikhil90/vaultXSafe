@@ -58,7 +58,7 @@ class MainWindow(QMainWindow):
         # self.stack.addWidget(self.detail_page)
 
         # Load stylesheet (engine handles fallback internally)
-        self.setStyleSheet(engine.getfile_css(css_file_name="button"))
+        self.setStyleSheet(engine.getfile_css_multiple("global" , "store_password"))
 
     def login_page(self):
         print(self.login_page.__name__)
@@ -154,21 +154,54 @@ class MainWindow(QMainWindow):
         back_btn.setToolTip("Back")
 
         # ─── Search Bar ───
+        search_bar = QHBoxLayout()
+
+        search_input = QLineEdit()
+        search_input.setPlaceholderText("By ID only.....")
+        search_input.setFixedHeight(40)
+
+        search_btn = QPushButton("🔍")
+        search_btn.setFixedHeight(40)
+        search_btn.setFixedWidth(100)
+        search_btn.setFont(QFont("Arial", 16 , QFont.Bold))
+        search_btn.clicked.connect(lambda : self.search_btn_clicked())
+
+
+        # ─── Button: for adding a new id & password ───
+        # [search_bar] [search_btn]
+        # Lable("─── ADD NEW id , pass ────") : add id_password 
+        # [id]
+        # [password]
+        # [gmail,facebook, Other(edit)] [add_btn]
+
+        add_bar = QHBoxLayout()
+
+        add_ID_title = QLabel("Add new uid & password")
+        add_ID_title.setFont(QFont("Arial", 20, QFont.Bold))
+        add_ID_title.setAlignment(Qt.AlignCenter)
+        add_ID_title.setObjectName("highlightLabel")
+        
+        add_id_password = QPushButton()
 
 
 
 
+        add_bar.addWidget(add_ID_title)
+        search_bar.addWidget(search_input)
+        search_bar.addWidget(search_btn)
         top_bar.addWidget(back_btn)
         top_bar.setAlignment(Qt.AlignTop | Qt.AlignLeft) 
 
-
         main_layout.addLayout(top_bar)
-        # main_layout.addStretch()
+        main_layout.addLayout(search_bar)
+        main_layout.addLayout(add_bar)
+        main_layout.addStretch() 
 
         page.setLayout(main_layout)   
         return page
 
-
+    def search_btn_clicked(self):
+        print(self.search_btn_clicked.__name__)
 
 
 
