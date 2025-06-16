@@ -47,7 +47,7 @@ class MainWindow(QMainWindow):
         self.settings_page = self.settings_page()
         self.store_password = self.store_password()
         self.store_books = self.store_books()
-        self.detail_page = self.detail_page()
+        # self.detail_page = self.detail_page()
 
         # Add pages to stack
         self.stack.addWidget(self.login_page)
@@ -55,7 +55,7 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.settings_page)
         self.stack.addWidget(self.store_password)
         self.stack.addWidget(self.store_books)
-        self.stack.addWidget(self.detail_page)
+        # self.stack.addWidget(self.detail_page)
 
         # Load stylesheet (engine handles fallback internally)
         self.setStyleSheet(engine.getfile_css(css_file_name="button"))
@@ -145,128 +145,28 @@ class MainWindow(QMainWindow):
 
     def store_password(self):
         page = QWidget()
-        self.layout = QVBoxLayout()
-
-        # Top bar: Search + Search Button + Category dropdown + Add
+        main_layout = QVBoxLayout()
         top_bar = QHBoxLayout()
 
-        self.search_input = QLineEdit()
-        self.search_input.setPlaceholderText("Search by ID...")
-        top_bar.addWidget(self.search_input)
+        back_btn = QPushButton("⏴")
+        back_btn.setFixedSize(40, 40)
+        back_btn.clicked.connect(lambda: self.stack.setCurrentIndex(self.WELCOME_PAGE))
+        back_btn.setToolTip("Back")
 
-        search_btn = QPushButton("🔍")
-        search_btn.clicked.connect(self.perform_search)
-        top_bar.addWidget(search_btn)
+        # ─── Search Bar ───
 
-        self.category_combo = QComboBox()
-        self.category_combo.setEditable(True)
-        self.category_combo.addItems(engine.get_password_categories())
-        top_bar.addWidget(self.category_combo)
 
-        self.add_btn = QPushButton("Add")
-        self.add_btn.clicked.connect(self.show_add_fields)
-        top_bar.addWidget(self.add_btn)
 
-        self.layout.addLayout(top_bar)
 
-        # ID and Password Fields (Initially Hidden)
-        self.id_input = QLineEdit()
-        self.id_input.setPlaceholderText("User ID")
-        self.id_input.setVisible(False)
-        self.layout.addWidget(self.id_input)
+        top_bar.addWidget(back_btn)
+        top_bar.setAlignment(Qt.AlignTop | Qt.AlignLeft) 
 
-        self.pass_input = QLineEdit()
-        self.pass_input.setPlaceholderText("Password")
-        self.pass_input.setEchoMode(QLineEdit.Password)
-        self.pass_input.setVisible(False)
-        self.layout.addWidget(self.pass_input)
-        # Submit Button
-        self.submit_btn = QPushButton("Submit")
-        self.submit_btn.clicked.connect(self.handle_submit)
-        self.layout.addWidget(self.submit_btn)
-        self.submit_btn.setVisible(False)
-        # Show Add Fields Button    
-        self.show_fields_btn = QPushButton("Show Fields")
-        self.show_fields_btn.clicked.connect(self.show_add_fields)
-        self.layout.addWidget(self.show_fields_btn)
-        self.show_fields_btn.setVisible(False)
-        # Submit Button
-        self.submit_btn = QPushButton("Submit")
-        
 
-        # Scrollable List (Initially Hidden)
-        self.scroll = QScrollArea()
-        self.scroll.setWidgetResizable(True)
-        self.scroll.setVisible(False)
+        main_layout.addLayout(top_bar)
+        # main_layout.addStretch()
 
-        self.content_widget = QWidget()
-        self.card_layout = QVBoxLayout()
-        self.content_widget.setLayout(self.card_layout)
-
-        self.scroll.setWidget(self.content_widget)
-        self.layout.addWidget(self.scroll)
-
-        page.setLayout(self.layout)
+        page.setLayout(main_layout)   
         return page
-
-    def show_add_fields(self):
-        self.id_input.setVisible(True)
-        self.pass_input.setVisible(True)
-
-    def perform_search(self):
-        keyword = self.search_input.text().lower()
-        found = False
-
-        # Remove all existing widgets
-        while self.card_layout.count():
-            item = self.card_layout.takeAt(0)
-            widget = item.widget()
-            if widget:
-                widget.deleteLater()
-
-        # Add card if match found (for demo, show any non-empty result)
-        if keyword:
-            card = self.create_password_card(keyword)
-            self.card_layout.addWidget(card)
-            found = True
-
-        self.scroll.setVisible(found)
-
-    def create_password_card(self, id_text):
-        card = QFrame()
-        card.setFrameShape(QFrame.StyledPanel)
-        card.setStyleSheet("background-color: #f0f0f0; border-radius: 10px; padding: 10px;")
-        card_layout = QHBoxLayout()
-
-        label = QLabel(f"ID: {id_text}")
-        label.setFont(QFont("Arial", 12))
-        card_layout.addWidget(label)
-
-        card_layout.addSpacerItem(QSpacerItem(20, 20, QSizePolicy.Expanding, QSizePolicy.Minimum))
-
-        open_btn = QPushButton("Open")
-        open_btn.clicked.connect(lambda: self.stack.setCurrentIndex(1))
-        card_layout.addWidget(open_btn)
-
-        card.setLayout(card_layout)
-        return card
-
-    def detail_page(self):
-        page = QWidget()
-        layout = QVBoxLayout()
-
-        self.detail_label = QLabel("Password Details View")
-        self.detail_label.setFont(QFont("Arial", 16))
-        layout.addWidget(self.detail_label)
-
-        back_btn = QPushButton("Back")
-        back_btn.clicked.connect(lambda: self.stack.setCurrentIndex(0))
-        layout.addWidget(back_btn)
-
-        page.setLayout(layout)
-        return page
-
-
 
 
 
