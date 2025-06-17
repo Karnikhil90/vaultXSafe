@@ -15,6 +15,7 @@
                 "root": "./src/css/",
                 "global" : "global.css",
                 "store_password" :"store_password.css",
+                "login_page" :"login_page.css",
                 "button": "button.css"
             },
             "database": {
