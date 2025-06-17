@@ -1,0 +1,35 @@
+#loginLabel {
+    color: #FFAB40;
+    font-size: 20px;
+    padding: 8px 12px;
+    text-align: center;
+    /* text shadow : does not support here */
+    /* text-shadow: 0 1px 2px #000; */
+}
+
+#loginInput {
+    padding: 10px 12px;
+    font-size: 15px;
+    border: 2px solid #009688;
+    border-radius: 6px;
+    background-color: #37474F;
+    color: #ECEFF1;
+}
+
+#loginInput:focus {
+    border-color: #FFAB40;
+    background-color: #455A64;
+}
+
+#loginButton {
+    background-color: #009688;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#loginButton:hover {
+    background-color: #00796B;
+}
