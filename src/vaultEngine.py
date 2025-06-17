@@ -76,14 +76,12 @@ class VaultEngine:
         return self.getdata_file("icon").get("root", None) + self.getdata_file("icon").get(icon_file_name, None)
 
     def getfile_css_multiple(self, *css_file_name) -> str | None:
-        print(self.getfile_css.__name__)
         try:
             file : str = ""
             for arg in css_file_name:
                 file += (self.getfile_css(arg) + '\n')
         except Exception as e:
             print(e)
-        print(file)
         return file
 
     def get_password_categories(self)-> list[str]:
