@@ -1,1 +1,7 @@
+# dir
 __pycache__
+test
+venv/
+.pytest_cache/
+# files
+.env
