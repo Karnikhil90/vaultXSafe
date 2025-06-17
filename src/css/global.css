@@ -2,12 +2,24 @@
 * {
     font-family: "Segoe UI", "Helvetica Neue", sans-serif;
     font-size: 18px;
+    background-color: #263238;
+
+}
+
+QWidget {
+    background-color: #263238;
 }
 
 /* QLabel */
 QLabel {
-    color: #333;
-    padding: 4px;
+    color: #FFAB40;                        /* Vibrant orange */
+    background-color: rgba(255, 255, 255, 0.05); /* subtle glassy overlay */
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(255, 171, 64, 0.3); /* light orange border */
 }
 
 /* QLineEdit */
