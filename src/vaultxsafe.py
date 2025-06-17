@@ -58,31 +58,35 @@ class MainWindow(QMainWindow):
         # self.stack.addWidget(self.detail_page)
 
         # Load stylesheet (engine handles fallback internally)
-        self.setStyleSheet(engine.getfile_css_multiple("global" , "store_password"))
+        self.setStyleSheet(engine.getfile_css_multiple("global" , "store_password","login_page"))
 
     def login_page(self):
-        print(self.login_page.__name__)
-        self.stack.setCurrentIndex(self.WELCOME_PAGE)
         page = QWidget()
         layout = QVBoxLayout()
+        layout.setSpacing(15)
+        layout.setContentsMargins(40, 40, 40, 40)
 
         label = QLabel("Enter your name and password")
-        label.setFont(QFont("Arial", 14))
+        label.setFont(QFont("Arial", 16, QFont.Bold))
+        label.setObjectName("loginLabel")
         layout.addWidget(label)
 
         self.name_input = QLineEdit()
         self.name_input.setPlaceholderText("Name")
+        self.name_input.setObjectName("loginInput")
         layout.addWidget(self.name_input)
 
         self.pass_input = QLineEdit()
         self.pass_input.setPlaceholderText("Password")
         self.pass_input.setEchoMode(QLineEdit.Password)
+        self.pass_input.setObjectName("loginInput")
         layout.addWidget(self.pass_input)
 
         self.submit_btn = QPushButton("Submit")
+        self.submit_btn.setObjectName("loginButton")
         self.submit_btn.clicked.connect(self.handle_submit)
         layout.addWidget(self.submit_btn)
-        self.handle_submit() 
+
         page.setLayout(layout)
         return page
 
@@ -144,66 +148,85 @@ class MainWindow(QMainWindow):
         return page
 
     def store_password(self):
+        # Overview of this page
+        # [search_bar] [search_btn]
+        # Lable("─── ADD NEW id , pass ────") : add id_password 
+        # [id]
+        # [password]
+        # [gmail,facebook, Other(edit)] 
+        # [add_btn]
         page = QWidget()
+        page.setObjectName("storePasswordPage")
+
         main_layout = QVBoxLayout()
         top_bar = QHBoxLayout()
+        search_bar = QHBoxLayout()
+        add_bar = QVBoxLayout()
 
         back_btn = QPushButton("⏴")
         back_btn.setFixedSize(40, 40)
         back_btn.clicked.connect(lambda: self.stack.setCurrentIndex(self.WELCOME_PAGE))
         back_btn.setToolTip("Back")
 
-        # ─── Search Bar ───
-        search_bar = QHBoxLayout()
-
         search_input = QLineEdit()
-        search_input.setPlaceholderText("By ID only.....")
+        search_input.setPlaceholderText("By ID only...")
         search_input.setFixedHeight(40)
+        search_input.setObjectName("searchInput")
 
         search_btn = QPushButton("🔍")
         search_btn.setFixedHeight(40)
         search_btn.setFixedWidth(100)
-        search_btn.setFont(QFont("Arial", 16 , QFont.Bold))
-        search_btn.clicked.connect(lambda : self.search_btn_clicked())
+        search_btn.setFont(QFont("Arial", 16, QFont.Bold))
+        search_btn.setObjectName("searchButton")
 
-
-        # ─── Button: for adding a new id & password ───
-        # [search_bar] [search_btn]
-        # Lable("─── ADD NEW id , pass ────") : add id_password 
-        # [id]
-        # [password]
-        # [gmail,facebook, Other(edit)] [add_btn]
-
-        add_bar = QHBoxLayout()
-
-        add_ID_title = QLabel("Add new uid & password")
+        add_ID_title = QLabel("Add new UID & Password")
         add_ID_title.setFont(QFont("Arial", 20, QFont.Bold))
         add_ID_title.setAlignment(Qt.AlignCenter)
         add_ID_title.setObjectName("highlightLabel")
-        
-        add_id_password = QPushButton()
 
+        user_id_input = QLineEdit()
+        user_id_input.setPlaceholderText("Enter a new user ID")
+        user_id_input.setFixedHeight(40)
+        user_id_input.setObjectName("formInput")
 
+        user_password_input = QLineEdit()
+        user_password_input.setPlaceholderText("Enter a new user password")
+        user_password_input.setFixedHeight(40)
+        user_password_input.setObjectName("formInput")
 
+        user_select_type_input = QComboBox()
+        user_select_type_input.setEditable(True)
+        user_select_type_input.addItems(engine.get_password_categories())
+        # user_select_type_input.setObjectName("comboBox")
 
+        user_ID_password_submit_btn = QPushButton("Submit")
+        user_ID_password_submit_btn.setObjectName("submitButton")
+        user_ID_password_submit_btn.clicked.connect(self.add_new_userID_clicked)
+
+        # Layout setup
         add_bar.addWidget(add_ID_title)
+        add_bar.addWidget(user_id_input)
+        add_bar.addWidget(user_password_input)
+        add_bar.addWidget(user_select_type_input)
+        add_bar.addWidget(user_ID_password_submit_btn)
+
         search_bar.addWidget(search_input)
         search_bar.addWidget(search_btn)
         top_bar.addWidget(back_btn)
-        top_bar.setAlignment(Qt.AlignTop | Qt.AlignLeft) 
+        top_bar.addStretch()
 
         main_layout.addLayout(top_bar)
         main_layout.addLayout(search_bar)
         main_layout.addLayout(add_bar)
-        main_layout.addStretch() 
+        main_layout.addStretch()
+        page.setLayout(main_layout)
 
-        page.setLayout(main_layout)   
         return page
-
     def search_btn_clicked(self):
         print(self.search_btn_clicked.__name__)
 
-
+    def add_new_userID_clicked(self):
+        print(self.add_new_userID_clicked.__name__)
 
 
 
