@@ -168,35 +168,36 @@ class MainWindow(QMainWindow):
         back_btn.clicked.connect(lambda: self.stack.setCurrentIndex(self.WELCOME_PAGE))
         back_btn.setToolTip("Back")
 
-        search_input = QLineEdit()
-        search_input.setPlaceholderText("By ID only...")
-        search_input.setFixedHeight(40)
-        search_input.setObjectName("searchInput")
+        self.search_input = QLineEdit()
+        self.search_input.setPlaceholderText("By ID only...")
+        self.search_input.setFixedHeight(40)
+        self.search_input.setObjectName("searchInput")
 
         search_btn = QPushButton("🔍")
         search_btn.setFixedHeight(40)
         search_btn.setFixedWidth(100)
         search_btn.setFont(QFont("Arial", 16, QFont.Bold))
         search_btn.setObjectName("searchButton")
+        search_btn.clicked.connect(self.search_btn_clicked)
 
         add_ID_title = QLabel("Add new UID & Password")
         add_ID_title.setFont(QFont("Arial", 20, QFont.Bold))
         add_ID_title.setAlignment(Qt.AlignCenter)
         add_ID_title.setObjectName("highlightLabel")
 
-        user_id_input = QLineEdit()
-        user_id_input.setPlaceholderText("Enter a new user ID")
-        user_id_input.setFixedHeight(40)
-        user_id_input.setObjectName("formInput")
+        self.user_id_input = QLineEdit()
+        self.user_id_input.setPlaceholderText("Enter a new user ID")
+        self.user_id_input.setFixedHeight(40)
+        self.user_id_input.setObjectName("formInput")
 
-        user_password_input = QLineEdit()
-        user_password_input.setPlaceholderText("Enter a new user password")
-        user_password_input.setFixedHeight(40)
-        user_password_input.setObjectName("formInput")
+        self.user_password_input = QLineEdit()
+        self.user_password_input.setPlaceholderText("Enter a new user password")
+        self.user_password_input.setFixedHeight(40)
+        self.user_password_input.setObjectName("formInput")
 
-        user_select_type_input = QComboBox()
-        user_select_type_input.setEditable(True)
-        user_select_type_input.addItems(engine.get_password_categories())
+        self.user_select_type_input = QComboBox()
+        self.user_select_type_input.setEditable(True)
+        self.user_select_type_input.addItems(engine.get_password_categories())
         # user_select_type_input.setObjectName("comboBox")
 
         user_ID_password_submit_btn = QPushButton("Submit")
@@ -205,12 +206,12 @@ class MainWindow(QMainWindow):
 
         # Layout setup
         add_bar.addWidget(add_ID_title)
-        add_bar.addWidget(user_id_input)
-        add_bar.addWidget(user_password_input)
-        add_bar.addWidget(user_select_type_input)
+        add_bar.addWidget(self.user_id_input)
+        add_bar.addWidget(self.user_password_input)
+        add_bar.addWidget(self.user_select_type_input)
         add_bar.addWidget(user_ID_password_submit_btn)
 
-        search_bar.addWidget(search_input)
+        search_bar.addWidget(self.search_input)
         search_bar.addWidget(search_btn)
         top_bar.addWidget(back_btn)
         top_bar.addStretch()
@@ -224,10 +225,15 @@ class MainWindow(QMainWindow):
         return page
     def search_btn_clicked(self):
         print(self.search_btn_clicked.__name__)
+        search_ = self.search_input.text()
+        print(search_)
 
     def add_new_userID_clicked(self):
         print(self.add_new_userID_clicked.__name__)
-
+        uid = self.user_id_input.text()
+        password = self.user_password_input.text()
+        choice = self.user_select_type_input.currentText()
+        print(f"UID:{uid} , PASSWORD: {password} ,CHOICE: {choice}")
 
 
 

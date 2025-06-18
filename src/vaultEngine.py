@@ -44,10 +44,17 @@ class VaultEngine:
         except Exception:
             return config_fallback[0]
 
+    def getGeometry(self) -> tuple[int]:
+        """Returns window position and size: (x, y, width, height)."""
+        data = self.getdata(self.file_path)
+        geometry = data.get("setting", {}).get("geometry", [500, 500])
+        position = data.get("setting", {}).get("position", [500, 200])
+        return position[0], position[1], geometry[0], geometry[1]
+    
     def getTitle(self) -> str:
         """Returns the app title from config or fallback."""
         return self.getdata(self.file_path).get("setting", {}).get("title", "VaultXSafe (Default)")
-
+    
     def getfile(self, file_path: str = None) -> str | None:
         """Returns raw content of the config file."""
         try:
@@ -56,15 +63,12 @@ class VaultEngine:
         except Exception:
             return None
         
-    def getdata_file(self, file_type: str= None):
+    def getdata_file(self, file_type: str= None)-> dict | str | list:
         return self.getdata(self.file_path).get("file", {}).get(file_type, {})
 
-    def getGeometry(self) -> tuple[int]:
-        """Returns window position and size: (x, y, width, height)."""
-        data = self.getdata(self.file_path)
-        geometry = data.get("setting", {}).get("geometry", [500, 500])
-        position = data.get("setting", {}).get("position", [500, 200])
-        return position[0], position[1], geometry[0], geometry[1]
+    def getdata_database(self, type : str = "files")-> str:
+        file = self.getdata_file("database")
+        return file.get("root") + file.get(type)
 
     def getfile_css(self, css_file_name: str = None) -> str | None:
         """Returns full path for a given CSS file name."""
