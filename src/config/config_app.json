@@ -2,7 +2,7 @@
     {
         "setting": {
             "title": "VaultXSafe v1.2a",
-            "version" : "1.1a",
+            "version" : "1.2a",
             "geometry": [500,500],
             "position": [500,200]
         },
@@ -22,7 +22,7 @@
                 "root": "./src/database/",
                 "sql": "",
                 "nosql":"",
-                "files":""
+                "files":"files/config.json"
             }
         }
     }
