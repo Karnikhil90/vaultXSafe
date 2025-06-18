@@ -75,18 +75,28 @@ FileAccess:
 """
 
 class FileAccess:
-    def __init__(self, fileAddress):
+    def __init__(self, fileAddress : str, force_create: bool = True):
         self.file_address = fileAddress
         # print(fileAddress)
-        try:
+        if force_create:
             self.ensure_directory_exists()
             self.ensure_file_exists()
-        except Exception as e:
-            print(f"Initialization error: {e}")
-
-    def exists(self) -> bool:
-        """Check if the file exists."""
-        return os.path.isfile(self.file_address)
+        else:
+            self.exists()
+            # os.path.exists(dir_name)
+    def exists(self, option : str = "file") -> bool:
+        if option in ["file", "f"]:
+            return os.path.isfile(self.file_address)
+        if option in ["dir", "d","folder"]:
+            try:
+                dir_name = os.path.dirname(self.file_address)
+                if dir_name and os.path.exists(dir_name):  # Add this condition
+                    return True
+            except Exception as e:
+                print(f"Error ensuring directory exists: {e}")
+        if option in ["both" , "filedir" ,"fd", "b"]:
+            return self.exists() and self.exists("dir")
+        return False
 
     def ensure_directory_exists(self):
         """Ensure that the directory for the file exists."""
