@@ -224,27 +224,14 @@ class MainWindow(QMainWindow):
 
         return page
     def search_btn_clicked(self):
-        print(self.search_btn_clicked.__name__)
         search_ = self.search_input.text()
-        print(search_)
+        print(f"SEARCH_QUERY='{search_}'")
 
     def add_new_userID_clicked(self):
-        print(self.add_new_userID_clicked.__name__)
         uid = self.user_id_input.text()
         password = self.user_password_input.text()
         choice = self.user_select_type_input.currentText()
         print(f"UID:{uid} , PASSWORD: {password} ,CHOICE: {choice}")
-
-
-
-
-    def settings_page(self):
-        page = QWidget()
-        layout = QVBoxLayout()
-        layout.addWidget(QLabel("Settings Page"))
-        page.setLayout(layout)
-        return page
-
 
     def store_books(self):
         page = QWidget()
@@ -253,9 +240,16 @@ class MainWindow(QMainWindow):
         page.setLayout(layout)
         return page
 
+    def settings_page(self):
+        page = QWidget()
+        layout = QVBoxLayout()
+        layout.addWidget(QLabel("Settings Page"))
+        page.setLayout(layout)
+        return page
+    
     def handle_submit(self):
         name = self.name_input.text()
-        password = self.pass_input.text()
+        password = self.pass_input.text()6
         print(f"Name: {name}, Password: {password}")
         self.stack.setCurrentIndex(self.WELCOME_PAGE)
 
